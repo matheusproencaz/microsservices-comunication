@@ -10,7 +10,8 @@ const sequelize = new Sequelize("auth-db", "admin", "123456", {
         underscored: true,
         underscoredAll: true,
         freezeTableName: true
-    }
+    },
+    logging: false,
 });
 
 sequelize
