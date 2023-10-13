@@ -1,0 +1,29 @@
+Criação do container de banco de dados postgres para autenticação e produtos.
+
+docker run --name auth-db -p 5432:5432 -e POSTGRES_DB=auth-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=123456 -d postgres:11
+
+docker run --name product-db -p 5433:5432 -e POSTGRES_DB=product-db -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=123456 -d postgres:11
+
+Criação do container de banco de dados mongodb para vendas.
+
+docker run --name sales-db -d -p 27017:27017 -p 28017:28017 -e MONGODB_USER="admin" -e MONGODB_DATABASE="sales" -e MONGODB_PASS="pass" tutum/mongodb
+
+Criação do container de rabbitmq
+
+docker run --name sales_rabbit -p 5672:5672 -p 25676:25656 -p 15672:15672 rabbitmq:3-management
+user/senha dashboard:  guest/guest
+
+Criação da image e container das apis de autenticação e vendas.
+
+docker image build -t sales-api ./sales-api/.
+
+docker image build -t auth-api ./auth-api/.
+
+docker run --name sales-api -e PORT=8082 -p 8082:8082 sales-api // Não precisa utilizar -e, é só pra mostrar como funciona pra passar as variáveis de ambiente.
+
+docker run --name auth-api -p 8082:8082 auth-api
+
+docker image build -t product-api ./product-api/.
+
+docker run --name product-api -p 8081:8081 product-api
+
