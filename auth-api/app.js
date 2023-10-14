@@ -21,8 +21,10 @@ app.get('/api/status', (req, res) => {
 });
 
 app.use(UserRoutes);
+
 app.use(ExceptionHandler);
 app.use(LogMiddleware);
+
 app.listen(PORT, () => {
     console.info(`Server started successfully at port: ${PORT}`)
 });

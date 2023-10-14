@@ -1,10 +1,9 @@
-import BaseHttpError from "./BaseHttpError";
+import BaseHttpError from "./Exceptions/BaseHttpError";
 
 const ExceptionHandler = (err, req, res, next) => {
-    // console.info("Middleware Error Handling");
     let errStatus = err.statusCode || 500;
 
-    if (err instanceof BaseHttpError) {
+    if (!err.statusCode && err instanceof BaseHttpError) {
         errStatus = 400;
     }
 
